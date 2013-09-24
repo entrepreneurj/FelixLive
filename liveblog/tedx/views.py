@@ -25,6 +25,8 @@ def get_content(request):
 			
 			if (post.author.picture):
 				post_data["author_img"]=post.author.picture.url
+			else:
+				post_data["author_img"]=post.event.picture.url
 		if (post.author_text):
 			post_data["author_name"]=post.author_text
 		if (post.picture):
