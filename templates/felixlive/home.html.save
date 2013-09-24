@@ -1,0 +1,43 @@
+    <!DOCTYPE html>
+    <html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/css/bootstrap-responsive.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="row-fluid">
+<div class="span2"></div>
+<div class="span8">
+<h1>Felix's Live Blog from TEDxAlbertopolis</h1>
+<hr>
+<h3>TEDxAlbertopolis Live Stream</h3>
+<div style="width:90%;margin-left:auto;margin-right:auto;"><iframe src="http://new.livestream.com/accounts/50006/events/2362980/player?width=640&height=360&autoPlay=true&mute=false" width="640" height="360" frameborder="0" scrolling="no"> </iframe>
+</div>
+<div style="width:90%;margin-left:auto;margin-right:auto;overflow-y:auto">
+{% for post in content %}
+<div class="well well-small {{post.content_type}}">
+{% ifequal post.content_type "TEXT" %}
+{{post.text}}
+{% endifequal %}
+<hr>
+<div>
+{% if post.author %}
+<div class="pull-left">
+
+</div>
+{% else %}
+<p class="author-label pull-left" style="text-align:left;display:inline;">{{post.author_text}}</p>
+{% endif %}
+<p class="post-label pull-right" style="text-align:right;display: inline;">{{post.content_type}}</p>	
+<div class="clerfix"></div>
+</div>
+<div>
+{% endfor %}
+</div>
+</div>
+
+<div class="span2"></div>
+</div>
+</body>
+    </html>

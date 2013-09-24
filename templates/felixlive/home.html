@@ -1,0 +1,115 @@
+   <!DOCTYPE html>
+    <html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+   <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+pollContent = function () {
+    $.getJSON(
+        "/api/content",
+        function (data) {
+            updateMsg(data);
+        }
+    );
+}
+
+updateMsg = function(data) {
+
+	$("#posts").html("");
+	$.each(data,
+	function(counter, post){
+
+	container='<div  class=\"well well-small '+ post["content_type"] + '\">';
+	if (post["content_type"]=="TEXT")
+		{
+		container=container+'<p>'+post["text"]+'</p>';
+		}
+       if (post["content_type"]=="TWEET")
+                {
+                container=container+post["text"];
+                }
+if (post["content_type"]=="FACEBOOK")
+                {
+                container=container+post["text"];  
+                }
+
+if (post["content_type"]=="QUOTE")
+                {
+                container=container+'<blockquote><p>'+post["text"]+'</p></blockquote>';  
+                }
+if (post["content_type"]=="PICTURE")
+                {
+                container=container+'<img src="'+post["img"]+'" style="max-width:60%;"/>';
+                if (post["text"])
+                	{
+                container=container+'<p style="display:inline;">'+post["text"]+'</p>';
+                	}
+		}	
+	container=container+'<hr><div><div class="pull-left" style="width:50%;">';
+	if (!post["author_text"])
+			{	
+			container=container+'<img class="author-img" src="' +post["author_img"]  +'" style="width:32px;" /><a href="'+ post["author_url"]+ '">'+post["author_name"]+'</a></div>';		
+			}		
+	else	
+			{
+			container=container+'<p class="author-label pull-left" style="text-align:left;display:inline;">'+post["author_name"]+'</p></div>';
+			}
+	container=container+'<p class="post-label pull-right" style="text-align:right;display: inline;">'+post["content_type"]+' | '+post["pub_date"]+'</p><div class="clearfix"></div></div>';
+	container=container+'</div>';
+	$("#posts").append(
+		$(container)
+
+
+
+
+
+		
+)
+}
+);
+}
+
+
+
+$(function () {
+    pollContent();
+    setInterval(pollContent, 30000);
+});
+</script>
+<title>Felix - TEDxAlbertopolis Live Feed</title>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=13508362436";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="row-fluid">
+<div class="span2"></div>
+<div class="span8">
+<h1>Felix's Live Blog from TEDxAlbertopolis</h1>
+<hr>
+<h3>TEDxAlbertopolis Live Stream</h3>
+<div style="width:90%;margin-left:auto;margin-right:auto;">
+<iframe style="max-width:90%; margin-left:auto; margin-right:auto;" src="http://new.livestream.com/accounts/50006/events/2362980/player?width=640&height=360&autoPlay=false&mute=false" width="640" height="360" frameborder="0" scrolling="no"> </iframe>
+</div>
+<br>
+<div id="posts" style="width:90%;margin-left:auto;margin-right:auto;overflow-y:auto;max-height:400px;">
+</div>
+</div>
+
+<div class="span2 hidden-phone">
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/search?q=%23TEDxAlb"  data-widget-id="382100712793964544">Tweets about "#TEDxAlb"</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+</div>
+</div>
+</body>
+    </html>
+
+
