@@ -7,6 +7,7 @@ class Event(models.Model):
 	name=models.CharField(max_length=50);
 	start_date=models.DateTimeField()
 	end_date=models.DateTimeField()
+	is_current=models.IntegerField(default=0)
 	location=models.CharField(max_length=50);
 	picture=models.ImageField(upload_to="ev",blank=True)
 	slug=models.CharField(max_length=15);
