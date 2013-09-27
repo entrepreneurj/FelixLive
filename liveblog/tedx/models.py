@@ -10,6 +10,7 @@ class Event(models.Model):
 	is_current=models.IntegerField(default=0)
 	location=models.CharField(max_length=50);
 	picture=models.ImageField(upload_to="ev",blank=True)
+	live_feed=models.TextField(blank=True)
 	slug=models.CharField(max_length=15);
 	def __unicode__(self):
                 return str(self.name)
