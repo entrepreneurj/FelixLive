@@ -9,6 +9,7 @@ class Event(models.Model):
 	end_date=models.DateTimeField()
 	location=models.CharField(max_length=50);
 	picture=models.ImageField(upload_to="ev",blank=True)
+	slug=models.CharField(max_length=15);
 	def __unicode__(self):
                 return str(self.name)
 
