@@ -7,8 +7,19 @@ from django.http import Http404, HttpResponse
 
 def home(request):
 	posts=Content.objects.all()
-	return render_to_response('home.html',{ 'content':posts })
+	events=Event.objects.all()
+	return render_to_response('home.html',{ 'content':posts, 'events':events })
 
+def event(request, slug):
+	event=Event.objects.filter(slug=slug)
+	if event:
+		posts=Content.objects.filter(event=event)
+		events=Event.objects.all()
+		return render_to_response('home.html',{ 'content':posts, 'events':events, 'event':event })
+	else:
+		posts=Content.objects.all()
+        	events=Event.objects.all()
+		return render_to_response('home.html',{ 'content':posts, 'events':events })
 
 #       sfd @method_decorator(csrf_exempt)
 def get_content(request):
