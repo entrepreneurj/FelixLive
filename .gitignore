@@ -1,2 +1,6 @@
 liveblog/settings.py
 *.pyc
+
+ais/
+pie/
+campus/

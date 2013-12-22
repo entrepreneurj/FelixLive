@@ -12,6 +12,8 @@ class Event(models.Model):
 	picture=models.ImageField(upload_to="ev",blank=True)
 	live_feed=models.TextField(blank=True)
 	slug=models.CharField(max_length=15);
+	twitter=models.CharField(max_length=16, blank=True)
+	hashtag=models.TextField(blank=True)
 	def __unicode__(self):
                 return str(self.name)
 

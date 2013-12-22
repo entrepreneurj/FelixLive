@@ -28,11 +28,11 @@ updateMsg = function(data) {
 		}
        if (post["content_type"]=="TWEET")
                 {
-                container=container+post["text"];
+                container=container+'<div style="max-width:60%;margin-left:auto;margin-right:auto;">'+post["text"]+'</div>';
                 }
 if (post["content_type"]=="FACEBOOK")
                 {
-                container=container+post["text"];  
+                container=container+'<div style="width:60%;margin-left:auto;margin-right:auto;">'+post["text"]+'</div>';  
                 }
 
 if (post["content_type"]=="QUOTE")
@@ -78,7 +78,11 @@ $(function () {
     setInterval(pollContent, 30000);
 });
 </script>
-<title>Felix - TEDxAlbertopolis Live Feed</title>
+{% if event %}
+<title>Felix - {{ event.name }} Live Feed</title>
+{% else %}
+<title>Felix Live Event Page</title>
+{% endif %}
 </head>
 <body>
 <div id="fb-root"></div>
@@ -92,21 +96,34 @@ $(function () {
 <div class="row-fluid">
 <div class="span2"></div>
 <div class="span8">
-<h1>Felix's Live Blog from TEDxAlbertopolis</h1>
+{% if event %}
+<h1>Felix Live Blog @ {{ event.name }}</h1>
+{% else %}
+<h1>Felix Live Blog Feed</h1>
+{% endif %}
 <hr>
-<h3>TEDxAlbertopolis Live Stream</h3>
+{% if event %}
+{% if event.live_feed %}
+<h3>{{ event.name }} Live Stream</h3>
 <div style="width:90%;margin-left:auto;margin-right:auto;">
-<iframe style="max-width:90%; margin-left:auto; margin-right:auto;" src="http://new.livestream.com/accounts/50006/events/2362980/player?width=640&height=360&autoPlay=false&mute=false" width="640" height="360" frameborder="0" scrolling="no"> </iframe>
+{{ event.live_feed|safe }}
 </div>
+{% else %}
+<!---- Other stuff to have if no current event -----!>
+{% endif %}
+{% endif %}
+
 <br>
-<div id="posts" style="width:90%;margin-left:auto;margin-right:auto;overflow-y:auto;max-height:400px;">
+<div id="posts" style="width:90%;margin-left:auto;margin-right:auto;overflow-y:auto;max-height:800px;">
 </div>
 </div>
 
 <div class="span2 hidden-phone">
-<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/search?q=%23TEDxAlb"  data-widget-id="382100712793964544">Tweets about "#TEDxAlb"</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
+{% if event %}
+{% if event.hashtag %}
+{{ event.hashtag|safe }}
+{% endif %}
+{% endif %}
 </div>
 </div>
 </body>

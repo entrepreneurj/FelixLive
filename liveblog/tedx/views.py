@@ -8,12 +8,16 @@ from django.http import Http404, HttpResponse
 def home(request):
 	posts=Content.objects.all()
 	events=Event.objects.all()
-	return render_to_response('home.html',{ 'content':posts, 'events':events })
+	event=Event.objects.filter(is_current=1).order_by('-end_date')[0]
+	if event:
+		return render_to_response('home.html',{ 'content':posts, 'events':events, 'event':event })
+	else:
+		return render_to_response('home.html',{ 'content':posts, 'events':events })
 
 def event(request, slug):
 	event=Event.objects.filter(slug=slug)
 	if event:
-		posts=Content.objects.filter(event=event)
+		posts=Content.objects.filter(event=event)[0]
 		events=Event.objects.all()
 		return render_to_response('home.html',{ 'content':posts, 'events':events, 'event':event })
 	else:
@@ -24,7 +28,8 @@ def event(request, slug):
 #       sfd @method_decorator(csrf_exempt)
 def get_content(request):
  	content_json=[]
- 	posts=Content.objects.all()
+	posts=Content.objects.filter(event__id=2)
+ 	#posts=Content.objects.all()
 	for post in posts:
 		post_data={'id':post.id, 'content_type':post.content_type, 'pub_date':post.pub_date.strftime("%d %b %H:%M")};
 		if (post.author):
