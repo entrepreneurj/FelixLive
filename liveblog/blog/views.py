@@ -1,5 +1,5 @@
 # Create your views here.
-from liveblog.tedx.models import *
+from liveblog.blog.models import *
 from django.shortcuts import render_to_response, redirect
 from django.utils import simplejson
 #from django.views.decorators.csrf import csrf_exempt

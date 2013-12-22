@@ -81,6 +81,6 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'liveblog.tedx',
+    'liveblog.blog',
     'django.contrib.admin',
 )

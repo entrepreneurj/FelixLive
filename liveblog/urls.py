@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from django.core.urlresolvers import reverse
-#from tedx.models import *
-from tedx import views 
+#from blog.models import *
+from blog import views 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()

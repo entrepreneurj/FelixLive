@@ -1,5 +1,5 @@
 from django.contrib import admin
-from liveblog.tedx.models import *
+from liveblog.blog.models import *
 
 
 class EventAdmin(admin.ModelAdmin):
