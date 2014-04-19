@@ -8,7 +8,7 @@
 <script type="text/javascript">
 pollContent = function () {
     $.getJSON(
-        "/api/content",
+		    "/api/content{% if event %}/{{ event.id }}{% endif %}",
         function (data) {
             updateMsg(data);
         }
